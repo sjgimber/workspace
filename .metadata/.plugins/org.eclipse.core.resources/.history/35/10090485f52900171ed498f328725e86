@@ -1,0 +1,62 @@
+package Tests;
+
+import static org.junit.Assert.*;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import HelperFunctions.constants;
+import Pages.loginPOM;
+
+public class loginTests 
+{
+	// Which classes / variables do we use in this test case?
+	private WebDriver driver;
+	private String baseUrl;
+	
+
+	@Before
+	public void setUp() throws Exception 
+	{
+		// This method is run BEFORE each @TEST case is run...
+		
+		// Request a new browser instance.  
+		// NOTE: The constants.chromeDriverPath needs to be set in the constants class file to point to your local chromedriver file.
+		System.setProperty("webdriver.chrome.driver", constants.chromeDriverPath);
+		driver = new ChromeDriver();
+		
+		// Now tell Selenium to wait up to 30 seconds if something isn't appearing fast enough.
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	}
+
+	@After
+	public void tearDown() throws Exception 
+	{
+		// This method is run AFTER each @TEST case is run...
+		
+		// Close the first driver instance.  This is used in ALL test cases.
+		driver.close();	
+	}
+
+	@Test
+	public void loginTest01_NonexistentUser() 
+	{
+		// We need to access the POM for the Login screen.
+		loginPOM loginPage = new loginPOM(driver);
+		
+		// Navigate the browser to the test page.
+		driver.get(constants.baseURL);
+		
+		// Now let's test!
+		// Log in with a non-existent user / password.
+		loginPage.loginWithCredentials("nonexistentUser", "password");
+		
+		// Verify that the validation error is shown.
+		assertTrue(loginPage.isValidationErrorShown());
+	}
+}

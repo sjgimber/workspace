@@ -1,0 +1,26 @@
+package HelperFunctions;
+
+public class helperFunctions 
+{
+	private logFunctions logger = new logFunctions();
+	
+	public boolean isCorrectScreenShown(String expectedScreenTitle, String actualScreenTitle)
+	{
+
+		logger.logMessage("Checking screen titles:");
+		
+		if (expectedScreenTitle.equals(actualScreenTitle))
+		{
+			// The correct screen is shown.
+			logger.logMessage("\tCorrect screen shown: " + expectedScreenTitle);
+			return true;
+		}
+		else
+		{
+			// Incorrect screen is shown.
+			logger.logMessage("\tExpected:\t" + expectedScreenTitle);
+			logger.logMessage("\tActual:  \t" + actualScreenTitle);
+			return false;
+		}
+	}
+}

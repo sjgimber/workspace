@@ -1,0 +1,124 @@
+package Tests;
+
+import static org.junit.Assert.*;
+
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import HelperFunctions.*;
+import Pages.homepagePOM;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
+public class homepageTests 
+{
+	private WebDriver driver;
+	private String baseUrl;
+	private logFunctions logger = new logFunctions();	
+
+	@Before
+	public void setUp() throws Exception 
+	{
+		// Before each test is run...
+		System.setProperty("webdriver.chrome.driver", constants.chromeDriverPath);
+		driver = new ChromeDriver();
+		baseUrl = constants.baseURL;
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	}
+
+	@After
+	public void tearDown() throws Exception 
+	{
+		// After each test is completed...
+		driver.close();
+		
+		// Log the test case end time in the debug trace.
+	    logger.logTestEnd();
+	}
+
+	private boolean isElementPresent(By by)
+	{
+		try
+		{
+			driver.findElement(by);
+			return true;
+		}
+		catch (NoSuchElementException e)
+		{
+			return false;
+		}
+	}
+	
+	@Test
+	public void test_QJP01_MissingMandatoryValues() throws InterruptedException 
+	{
+		logger.logTestStart(
+				"Test QJP-01: Invalid: Missing Mandatory Values",
+				"Summary: This test verifies that the QJP panel refuses to start with missing mandatory values.");
+	    driver.get(baseUrl);
+	    homepagePOM homePage = new homepagePOM(driver);
+
+	    System.out.println("Start to find");
+	    
+	    
+	    WebElement fld = driver.findElement(By.cssSelector("html > body"));
+	    System.out.println("end find");
+	    
+	    
+	    fld.sendKeys("Cooee");
+	    
+	    
+	    driver.findElement(By.xpath(".//input[contains(@title,'From')]")).sendKeys("Hi");
+	    System.out.println("end find");
+	    
+	    for (int second = 0;; second++)
+	    {
+	    	System.out.println(second);
+	    	if (second >= 1) fail("timeout");
+	    	try
+	    	{
+	    		if (isElementPresent(By.id("origin"))) break;
+	    	}
+	    	catch (Exception e)
+	    	{}
+	    	Thread.sleep(100);
+	    }
+	    
+	    
+	    
+	    
+	    /* driver.findElement(By.add("origin")).clear();
+	    driver.findElement(By.id("origin")).click();
+	    driver.findElement(By.id("origin")).sendKeys("dunoon"); */
+	    
+	    /*
+	    driver.findElement(By.cssSelector("strong")).click();
+	    driver.findElement(By.id("origin")).sendKeys("Dunoon, Argyll & Bute");
+	    
+	    driver.findElement(By.linkText("Inverness City Centre, Highland")).click();
+	    driver.findElement(By.id("destination")).clear();
+	    driver.findElement(By.id("destination")).sendKeys("Inverness City Centre, Highland");
+	    driver.findElement(By.cssSelector("button.btn.ng-scope")).click();
+	    */
+	    
+	    /*
+	    String origin = "o";
+	    String destination = "d";
+	    homePage.setQJP_Locations(origin, destination);
+	    */
+	    homePage.clickQJP_PlanMyJourney();
+	    
+	    // There is no validation error shown for missing values.
+	    // Expected behaviour: the Home screen is still shown.
+	    logger.logMessage("Screen shown: " + driver.getTitle());
+	}
+}

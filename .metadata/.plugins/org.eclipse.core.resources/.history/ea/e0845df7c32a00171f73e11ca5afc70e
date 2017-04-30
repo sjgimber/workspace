@@ -1,0 +1,45 @@
+package Pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import HelperFunctions.*;
+
+public class homepagePOM 
+{
+	WebDriver driver;
+	private logFunctions logger = new logFunctions();
+
+	@FindBy(css="#origin") WebElement txtOrigin;					// Quick Journey Planner "Origin" field.
+	@FindBy(css="#destination") WebElement txtDestination;			// Quick Journey Planner "Destination" field.
+	@FindBy(xpath="html/body/div/div[3]/button") WebElement btnPlanMyJourney;	// Quick Journey Planner <Plan my journey> button.
+
+	// String actualTitle = driver.getTitle();
+	// String expectedTitle = "Title of Page";
+	// assertEquals(expectedTitle,actualTitle);
+	
+	public homepagePOM(WebDriver driver)
+	{
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	public void setQJP_Locations(String origin, String destination)
+	{
+
+	logger.logMessage("setQJP_Locations()");	
+		txtOrigin.clear();
+		txtOrigin.sendKeys(origin);
+		
+		txtDestination.clear();
+		txtDestination.sendKeys(destination);
+	}
+	
+	public void clickQJP_PlanMyJourney()
+	{
+		logger.logMessage("clickQJP_PlanMyJourney()");
+		btnPlanMyJourney.click();
+	}
+}

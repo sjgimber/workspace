@@ -1,0 +1,99 @@
+package Tests;
+
+import static org.junit.Assert.*;
+import java.util.concurrent.TimeUnit;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import HelperFunctions.constants;
+import Pages.loginPOM;
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
+public class loginTests 
+{
+	// Which classes / variables do we use in this test case?
+	private WebDriver driver;
+
+	@Before
+	public void setUp() throws Exception 
+	{
+		// This method is run BEFORE each @TEST case is run...
+		
+		// Request a new browser instance.  
+		// NOTE: The constants.chromeDriverPath needs to be set in the constants class file to point to your local chromedriver file.
+		System.setProperty("webdriver.chrome.driver", constants.chromeDriverPath);
+		driver = new ChromeDriver();
+		
+		// Now tell Selenium to wait up to 30 seconds if something isn't appearing fast enough.
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	}
+
+	@After
+	public void tearDown() throws Exception 
+	{
+		// This method is run AFTER each @TEST case is run...
+		
+		// Close the first driver instance.  This is used in ALL test cases.
+		driver.close();	
+	}
+
+	@Test
+	public void loginTest01_NonexistentUser() 
+	{
+		// This test attempts to log in with a non-existent user account.
+		// Expected result: a login validation failure.
+		
+		// We need to access the POM for the Login screen.
+		loginPOM loginPage = new loginPOM(driver);
+		driver.get(constants.baseURL);
+		
+		// Now let's test!
+		// Log in with a non-existent user / password.
+		loginPage.loginWithCredentials("nonexistentUser", "password");
+		
+		// Verify that the validation error is shown.
+		assertTrue(loginPage.isValidationErrorShown());
+	}
+	
+	@Test
+	public void loginTest02_InvalidPassword() 
+	{
+		// This test attempts to log in with a valid user, but invalid password.
+		// Expected result: a login validation failure.
+		
+		// We need to access the POM for the Login screen.
+		loginPOM loginPage = new loginPOM(driver);
+		driver.get(constants.baseURL);
+		
+		// Now let's test!
+		// Log in with a valid user / invalid password.
+		loginPage.loginWithCredentials("goodusername", "badpassword");
+		
+		// Verify that the validation error is shown.
+		assertTrue(loginPage.isValidationErrorShown());
+	}
+
+	@Test
+	public void loginTest03_ValidPassword() 
+	{
+		// This test attempts to log in with a valid user, and valid password.
+		// Expected result: a login welcome message (no validation error).
+		
+		// We need to access the POM for the Login screen.
+		loginPOM loginPage = new loginPOM(driver);
+		driver.get(constants.baseURL);
+		
+		// Now let's test!
+		// Log in with a valid user / invalid password.
+		loginPage.loginWithCredentials("goodusername", "goodpassword");
+		
+		// Verify that the validation error is shown.
+		assertFalse(loginPage.isValidationErrorShown());
+	}
+}

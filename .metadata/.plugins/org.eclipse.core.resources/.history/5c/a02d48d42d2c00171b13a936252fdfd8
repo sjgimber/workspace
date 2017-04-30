@@ -1,0 +1,104 @@
+package Pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import HelperFunctions.*;
+
+public class homepagePOM 
+{
+	WebDriver driver;
+	private logFunctions logger = new logFunctions();
+	private helperFunctions lib = new helperFunctions();
+
+	@FindBy(xpath="//input[@id='origin']") WebElement txtOrigin;								// Quick Journey Planner "Origin" field.
+	@FindBy(css="#destination") WebElement txtDestination;										// Quick Journey Planner "Destination" field.
+	@FindBy(xpath="html/body/div/div[3]/button") WebElement btnPlanMyJourney;					// Quick Journey Planner <Plan my journey> button.
+
+	@FindBy(xpath="//div[@class='journey-plan-dialog-container']/iframe") WebElement frameQJP;	// QJP iframe.
+	
+	public homepagePOM(WebDriver driver)
+	{
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	public void setOriginNoSelect(String origin)
+	{
+		// This places a value into the Origin field, but DOESN'T verify the value from the location lookup list.
+
+		// The QJP is embedded in an iframe inside the main page.
+		// Need to switch to this frame to access its content.
+		driver.switchTo().frame(frameQJP);
+
+		txtOrigin.clear();
+		txtOrigin.sendKeys(origin);
+		
+		// Now switch back to the main screen content.
+		driver.switchTo().defaultContent();
+	}
+	
+	public void setOriginAndSelect(String origin)
+	{
+		// This places a value into the Origin field, then selects the value from the location lookup list.
+
+		// The QJP is embedded in an iframe inside the main page.
+		// Need to switch to this frame to access its content.
+		driver.switchTo().frame(frameQJP);
+
+		lib.setLocationField(driver, txtOrigin, origin);
+
+		// Now switch back to the main screen content.
+		driver.switchTo().defaultContent();
+	}	
+	
+	public void setDestinationNoSelect(String origin)
+	{
+		// This places a value into the Destination field, but DOESN'T verify the value from the location lookup list.
+
+		// The QJP is embedded in an iframe inside the main page.
+		// Need to switch to this frame to access its content.
+		driver.switchTo().frame(frameQJP);
+
+		txtDestination.clear();
+		txtDestination.sendKeys(origin);
+		
+		// Now switch back to the main screen content.
+		driver.switchTo().defaultContent();
+	}
+
+	public void setDestinationAndSelect(String origin)
+	{
+		// This places a value into the Destination field, then selects the value from the location lookup list.
+
+		// The QJP is embedded in an iframe inside the main page.
+		// Need to switch to this frame to access its content.
+		driver.switchTo().frame(frameQJP);
+
+		lib.setLocationField(driver, txtDestination, origin);
+		
+		// Now switch back to the main screen content.
+		driver.switchTo().defaultContent();
+	}	
+
+	public void setQJP_Locations(String origin, String destination)
+	{
+		setOriginAndSelect(origin);
+		setDestinationAndSelect(origin);
+	}
+	
+	public void clickQJP_PlanMyJourney()
+	{
+		// The QJP is embedded in an iframe inside the main page.
+		// Need to switch to this frame to access its content.
+		driver.switchTo().frame(frameQJP);
+
+		btnPlanMyJourney.click();
+
+		// Now switch back to the main screen content.
+		driver.switchTo().defaultContent();
+	}
+}

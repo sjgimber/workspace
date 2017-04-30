@@ -1,0 +1,72 @@
+package Pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class loginPOM 
+{
+	// We need to know what browser we're working with.
+	WebDriver driver;
+	
+	// Firstly, identify the controls on this screen.
+	@FindBy(id="username") WebElement txtUsername;					// "Username" field.
+	@FindBy(id="password") WebElement txtPassword;					// "Password" field.
+	@FindBy(id="submit") WebElement btnLogin;						// <Login> button.
+	@FindBy(id="validationError") WebElement lblValidationMessage;	// The validation message area.
+
+	// This POM needs a constructor.
+	public loginPOM(WebDriver driver)
+	{
+		// This POM works with the browser that is passed in when the class is instantiated.
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	// Now define our functions which interact with this screen.
+	
+	public void loginWithCredentials(String username, String password)
+	{
+		// This function will set the Username and Password fields to the selected values, then click on the <Login> button.
+		
+		// Set the username...
+		txtUsername.clear();
+		txtUsername.sendKeys(username);
+		
+		// Set the password...
+		txtPassword.clear();
+		txtPassword.sendKeys(password);
+		
+		// Click on <Login>...
+		btnLogin.click();
+	}
+	
+	public boolean isValidationErrorShown()
+	{
+		// This function will check the contents of the "validationError" paragraph, and:
+		// - return TRUE if the message is "Error"
+		// - return FALSE if the message is "Welcome"
+		String message = lblValidationMessage.getText();
+		System.out.println("Validation Message is " + message);
+		
+		if (message.equals("Welcome"))
+		{
+			// The "Welcome" message is shown, indicating that the user is logged in.
+			// This is NOT an error.
+			return false;
+		}
+		else if (message.equals("Error"))
+		{
+			// The "Error" message is shown, indicating that the login credentials were not correct.
+			// This IS a validation error.
+			return true;
+		}
+		else
+		{
+			// Something else is shown.  
+			System.out.println("ERROR: An invalid validation message is shown: " + message);
+			return true;
+		}
+	}
+}
