@@ -8,26 +8,27 @@ public class helperFunctions
 {
 	private logFunctions logger = new logFunctions();
 	
-	public boolean isCorrectScreenShown(String expectedScreenTitle, String actualScreenTitle)
+	public boolean isCorrectScreenShown(String expectedScreenValue, String actualScreenValue)
 	{
-
-		logger.logMessage("Checking screen titles:");
+		logger.logMessage("Checking screen URL / Title:");
 		
-		if (expectedScreenTitle.equals(actualScreenTitle))
+		if (actualScreenValue.contains(expectedScreenValue))
 		{
 			// The correct screen is shown.
-			logger.logMessage("\tCorrect screen shown: " + expectedScreenTitle);
+			logger.logMessage("\tCorrect screen shown: " + actualScreenValue);
 			return true;
 		}
 		else
 		{
 			// Incorrect screen is shown.
-			logger.logMessage("\tExpected:\t" + expectedScreenTitle);
-			logger.logMessage("\tActual:  \t" + actualScreenTitle);
+			logger.logMessage("\tExpected:\t" + expectedScreenValue);
+			logger.logMessage("\tActual:  \t" + actualScreenValue);
 			return false;
 		}
 	}
+
 	
+
 	public void setLocationField(WebDriver driver, WebElement control, String location)
 	{
 		// Using the browser control, set the location control to the selected location value (and click it).

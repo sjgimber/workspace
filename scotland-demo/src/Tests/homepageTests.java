@@ -95,6 +95,9 @@ public class homepageTests
 	    
 	    // There is no validation error shown for missing values.
 	    // Expected behaviour: the Home screen is still shown.
-	    assertTrue(lib.isCorrectScreenShown(constants.titleJourneyPlannerPage, driver.getTitle()));
+	    assertTrue(lib.isCorrectScreenShown(constants.urlJourneyPlannerPage, driver.getCurrentUrl()));
+
+	    // Verify that the journey was planned as requested.
+	    
 	}
 }
