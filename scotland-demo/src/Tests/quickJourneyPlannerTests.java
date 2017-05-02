@@ -146,7 +146,7 @@ public class quickJourneyPlannerTests
 	    homepagePOM homePage = new homepagePOM(driver);
 	    journeyPlannerPOM jpPage = new journeyPlannerPOM(driver);
 	    
-	    // Set the Origin and Destination values.
+	    // Set the Origin and Destination values. 
 	    String origin = "Dunoon, Argyll & Bute";
 	    String destination = "Dunoon, Argyll & Bute";
 	    logger.logMessage("QJP planning:");
