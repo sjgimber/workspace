@@ -66,7 +66,7 @@ public class journeyPlannerPOM
 		return destination;
 	}
 	
-	public void clearDestination()
+	public void clearDestination() 
 	{
 		btnDestinationClear.click();
 	}

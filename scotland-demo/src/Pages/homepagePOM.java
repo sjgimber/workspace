@@ -94,7 +94,7 @@ public class homepagePOM
 		setDestinationAndSelect(destination);
 	}
 	
-	public void clickQJP_PlanMyJourney()
+	public void clickQJP_PlanMyJourney() 
 	{
 		// The QJP is embedded in an iframe inside the main page.
 		// Need to switch to this frame to access its content.

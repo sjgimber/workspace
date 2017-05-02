@@ -136,7 +136,7 @@ public class quickJourneyPlannerTests
 	}
 	
 	@Test
-	public void test_QJP04_PlanJourneyNoneFound() 
+	public void test_QJP04_PlanJourneyNoneFound()  
 	{
 		logger.logTestStart(
 				"Test QJP-04: Plan Journey (No Journeys Found)",
