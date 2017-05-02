@@ -34,6 +34,7 @@ public class homepagePOM
 		// Need to switch to this frame to access its content.
 		driver.switchTo().frame(frameQJP);
 
+		logger.logMessage("\tSet From:\t" + origin);
 		txtOrigin.clear();
 		txtOrigin.sendKeys(origin);
 		
@@ -49,6 +50,7 @@ public class homepagePOM
 		// Need to switch to this frame to access its content.
 		driver.switchTo().frame(frameQJP);
 
+		logger.logMessage("\tSet From:\t" + origin);
 		lib.setLocationField(driver, txtOrigin, origin);
 
 		// Now switch back to the main screen content.
@@ -63,6 +65,7 @@ public class homepagePOM
 		// Need to switch to this frame to access its content.
 		driver.switchTo().frame(frameQJP);
 
+		logger.logMessage("\tSet To:  \t" + destination);
 		txtDestination.clear();
 		txtDestination.sendKeys(destination);
 		
@@ -70,7 +73,7 @@ public class homepagePOM
 		driver.switchTo().defaultContent();
 	}
 
-	public void setDestinationAndSelect(String origin)
+	public void setDestinationAndSelect(String destination)
 	{
 		// This places a value into the Destination field, then selects the value from the location lookup list.
 
@@ -78,7 +81,8 @@ public class homepagePOM
 		// Need to switch to this frame to access its content.
 		driver.switchTo().frame(frameQJP);
 
-		lib.setLocationField(driver, txtDestination, origin);
+		logger.logMessage("\tSet To:  \t" + destination);
+		lib.setLocationField(driver, txtDestination, destination);
 		
 		// Now switch back to the main screen content.
 		driver.switchTo().defaultContent();

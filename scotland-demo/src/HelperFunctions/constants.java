@@ -15,11 +15,22 @@ public class constants
 	public static final String urlHomePage 		= "/?lang=en";
 	public static final String titleHomePage 	= "Home | Traveline Scotland";
 	
-	public static final String urlJourneyPlannerPage = "/travelInfo";
+	public static final String urlJourneyPlannerPage = "/lts/#/travelInfo";
 	public static final String urlDeparturesPage = "/liveDepartures";
 	public static final String urlTimetablesPage = "/timetables";
 	public static final String urlTravelUpdatesPage = "/updates";
 	
 	// List of invalid date values to use for validation checking of each date field.
     public static final String[] invalidDates =	{"2017", "2017-02-29", "invalidvalue"};
-}
+    
+    // Sample journeys using different styles of location.
+    public static final String[] testLocations = {
+    		"Dunoon, Argyll & Bute", 					// Locality
+    		"Binnie Lane, Gourock",						// Street
+    		"Buchanan Street Spt Subway Station",		// Subway station
+    		"Edinburgh Airport (Edinburgh Trams)",		// Tram station
+    		"Greenside, Stop Jc Leith Street",			// Bus stop
+    		"Edinburgh Rail Station",					// Rail station
+    		"Gourock Ferry Terminal"					// Ferry stop
+    		};
+    }
