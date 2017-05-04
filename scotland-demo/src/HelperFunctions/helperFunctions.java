@@ -1,5 +1,7 @@
 package HelperFunctions;
 
+import java.util.NoSuchElementException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -37,5 +39,18 @@ public class helperFunctions
 		
 		// Drop-down list is shown.  Select the closest match from it.
 		driver.findElement(By.linkText(location)).click();
+	}
+	
+	public boolean isElementPresent(WebDriver driver, By by)
+	{
+		try
+		{
+			driver.findElement(by);
+			return true;
+		}
+		catch (NoSuchElementException e)
+		{
+			return false;
+		}
 	}
 }

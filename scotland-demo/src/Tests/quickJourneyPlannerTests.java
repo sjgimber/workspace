@@ -63,7 +63,7 @@ public class quickJourneyPlannerTests
 	}
 	
 	@Test
-	public void test_QJP02_PlanJourney() throws InterruptedException 
+	public void test_QJP02_PlanJourney() 
 	{
 		logger.logTestStart(
 				"Test QJP-02: Plan Journey",
@@ -94,7 +94,7 @@ public class quickJourneyPlannerTests
 	}
 	
 	@Test
-	public void test_QJP03_PlanJourneysWithAllStopTypes() 
+	public void test_QJP03_PlanJourneys_WithAllStopTypes() 
 	{
 		logger.logTestStart(
 				"Test QJP-03: Plan Journey With All Stop Types",
@@ -136,7 +136,7 @@ public class quickJourneyPlannerTests
 	}
 	
 	@Test
-	public void test_QJP04_PlanJourneyNoneFound()  
+	public void test_QJP04_PlanJourney_NoneFound()  
 	{
 		logger.logTestStart(
 				"Test QJP-04: Plan Journey (No Journeys Found)",
@@ -148,7 +148,7 @@ public class quickJourneyPlannerTests
 	    
 	    // Set the Origin and Destination values. 
 	    String origin = "Dunoon, Argyll & Bute";
-	    String destination = "Dunoon, Argyll & Bute";
+	    String destination = "Fair Isle Airport, Shetland Islands";
 	    logger.logMessage("QJP planning:");
 	    homePage.setQJP_Locations(origin, destination);
 

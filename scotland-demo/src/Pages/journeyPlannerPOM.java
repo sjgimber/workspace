@@ -74,8 +74,18 @@ public class journeyPlannerPOM
 	public Integer getJourneyCount()
 	{
 		// Determine the number of matching journeys found.  These are located in the Journeys Found panel on the left.
-		int journeysFound = driver.findElements(By.xpath("//*[@class='journey-plan']")).size(); 
-		logger.logMessage("\tJourneys:\t" + journeysFound);
+		int journeysFound;
+		
+		if (lib.isElementPresent(driver, By.xpath("//span[text()='No journeys found']")))
+		{
+			// No journeys found.
+			journeysFound = 0;
+		}
+		else
+		{
+			journeysFound = driver.findElements(By.xpath("//*[@class='journey-plan']")).size(); 
+		}
+		logger.logMessage("\tFound Journeys:\t" + journeysFound);
 		return journeysFound;
 	}
 }

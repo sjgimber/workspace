@@ -25,12 +25,12 @@ public class constants
     
     // Sample journeys using different styles of location.
     public static final String[] testLocations = {
-    		"Dunoon, Argyll & Bute", 					// Locality
-    		"Binnie Lane, Gourock",						// Street
-    		"Buchanan Street Spt Subway Station",		// Subway station
-    		"Edinburgh Airport (Edinburgh Trams)",		// Tram station
-    		"Greenside, Stop Jc Leith Street",			// Bus stop
-    		"Edinburgh Rail Station",					// Rail station
-    		"Gourock Ferry Terminal"					// Ferry stop
+    		"Dunoon, Argyll & Bute", 								// Locality
+    		"Binnie Lane, Gourock",									// Street
+    		"Buchanan Street Spt Subway Station",					// Subway station
+    		"Edinburgh Airport (Edinburgh Trams)",					// Tram station
+    		"Greenside, Stop Jc Leith Street",						// Bus stop
+    		"Edinburgh Rail Station",								// Rail station
+    		"Kirkwall (Northlink Ferry Terminal), Orkney Islands"	// Ferry stop
     		};
     }
