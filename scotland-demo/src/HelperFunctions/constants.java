@@ -9,7 +9,8 @@ public class constants
 	
 	// The URL to be used for the project.
 	// NOTE: In future, it should be possible to set this via command-line, to allow for flexible calling from CI systems.
-	public static final String baseURL = "http://scotland-demo.trapezegroup.co.uk";
+	// public static final String baseURL = "http://scotland-demo.trapezegroup.co.uk";
+	public static final String baseURL = "http://www.travelinescotland.com";
 
 	// Screen URLs.  Used for navigation checking.
 	public static final String urlHomePage 		= "/?lang=en";

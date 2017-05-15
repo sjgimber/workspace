@@ -44,18 +44,46 @@ public class journeyPlannerTests
 	}
 	
 	@Test
-	public void test() throws InterruptedException 
+	public void test_JP01_From_ClearField()  
 	{
 		logger.logTestStart(
-				"Test JP-01: Plan Journey",
-				"Summary: This test verifies that the QJP panel passes the locations through to the Journey Planner.");
+				"Test JP-01: From: Clear Field",
+				"Summary: This test verifies that the Journey Planner From field clears when the <x> button is clicked.");
 	    driver.get(baseUrl);
 	    journeyPlannerPOM jpPage = new journeyPlannerPOM(driver);
 	    
-	    jpPage.setOrigin("Cooee");
-	    Thread.sleep(5000);
-	    jpPage.clearOrigin();
-	    Thread.sleep(5000);
-	}
+	    // Set the Origin and Destination values. 
+	    String origin = "Dunoon, Argyll & Bute";
+	    String destination = "Fair Isle Airport, Shetland Islands";
+	    logger.logMessage("Journey planning:");
+	    jpPage.setJP_Locations(origin, destination);
 
+	    // Click on <x> for the From field.
+	    jpPage.clearOrigin();
+	    
+	    // Expected behaviour: the From field now contains the text "From".
+	    assertTrue(jpPage.getOrigin().equals("From"));
+	}
+	
+	@Test
+	public void test_JP02_To_ClearField()  
+	{
+		logger.logTestStart(
+				"Test JP-02: To: Clear Field",
+				"Summary: This test verifies that the Journey Planner To field clears when the <x> button is clicked.");
+	    driver.get(baseUrl);
+	    journeyPlannerPOM jpPage = new journeyPlannerPOM(driver);
+	    
+	    // Set the Origin and Destination values. 
+	    String origin = "Dunoon, Argyll & Bute";
+	    String destination = "Fair Isle Airport, Shetland Islands";
+	    logger.logMessage("Journey planning:");
+	    jpPage.setJP_Locations(origin, destination);
+
+	    // Click on <x> for the To field.
+	    jpPage.clearDestination();
+	    
+	    // Expected behaviour: the To field now contains the text "To".
+	    assertTrue(jpPage.getDestination().equals("To"));
+	}	
 }

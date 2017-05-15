@@ -1,5 +1,7 @@
 package Pages;
 
+import java.util.NoSuchElementException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,60 +33,102 @@ public class journeyPlannerPOM
 	
 	public void setOrigin(String location)
 	{
-		// Set the content of the Origin field.
-		logger.logMessage("\tFrom:\t" + location);
+		// Set the content of the Origin field.  
+		// NOTE: This doesn't select a value from the location lookup list.
+		logger.logMessage("\tSet From:\t" + location);
 		txtOrigin.clear();
 		txtOrigin.sendKeys(location);
 	}
-	
+
+	public void setOriginAndSelect(String location)
+	{
+		// Set the content of the Origin field.  
+		// NOTE: This also selects the value from the location lookup list.
+		logger.logMessage("\tSet From:\t" + location);
+		lib.setLocationField(driver, txtOrigin, location);
+	}
+
 	public String getOrigin()
 	{
 		// Retrieve the location value in the Origin field.
 		String origin = txtOrigin.getAttribute("value");
+		if (origin.equals(""))
+		{
+			// There is no value set, so this *may* have been reset.  Check the placeholder text instead.
+			origin = txtOrigin.getAttribute("placeholder");
+		}
 		logger.logMessage("\tFound From:\t" + origin);
 		return origin;
 	}
 	
 	public void clearOrigin()
 	{
+		// Click on the <x> button next to the Origin field.
+		// Expected behaviour: The field is cleared, and replaced with the word "From".
 		btnOriginClear.click();
 	}
 	
 	public void setDestination(String location)
 	{
-		// Set the content of the Destination field.
-		logger.logMessage("\tTo:\t" + location);
-		txtDestination.clear();
-		txtDestination.sendKeys(location);
+		// This places a value into the Destination field, then selects the value from the location lookup list.
+		logger.logMessage("\tSet To:  \t" + location);
+		lib.setLocationField(driver, txtDestination, location);
 	}
 	
+	public void setDestinationAndSelect(String location)
+	{
+		// Set the content of the Destination field.  
+		// NOTE: This also selects the value from the location lookup list.
+		logger.logMessage("\tSet To:  \t" + location);
+		lib.setLocationField(driver, txtDestination, location);
+	}
+
 	public String getDestination()
 	{
 		// Retrieve the location value in the Destination field.
 		String destination = txtDestination.getAttribute("value");
+		if (destination.equals(""))
+		{
+			// There is no value set, so this *may* have been reset.  Check the placeholder text instead.
+			destination = txtDestination.getAttribute("placeholder");
+		}
 		logger.logMessage("\tFound To:\t" + destination);
 		return destination;
 	}
 	
 	public void clearDestination() 
 	{
+		// Click on the <x> button next to the Destination field.
+		// Expected behaviour: The field is cleared, and replaced with the word "To".
 		btnDestinationClear.click();
 	}
 	
+	// --------------------------------------------------------------------------------
+	
+	public void setJP_Locations(String origin, String destination)
+	{
+		// This sets both origin and destination fields, selecting from the location lookup fields as well.
+		setOriginAndSelect(origin);
+		setDestinationAndSelect(destination);
+	}
+		
 	public Integer getJourneyCount()
 	{
 		// Determine the number of matching journeys found.  These are located in the Journeys Found panel on the left.
 		int journeysFound;
 		
-		if (lib.isElementPresent(driver, By.xpath("//span[text()='No journeys found']")))
+		try
+		{
+			// In the absence of "no journeys found", this is "journeys found".  Get the number of journeys.
+			
+			journeysFound = driver.findElements(By.xpath("//*[@class='journey-plan']")).size();
+		}
+		catch  (NoSuchElementException e)
 		{
 			// No journeys found.
 			journeysFound = 0;
 		}
-		else
-		{
-			journeysFound = driver.findElements(By.xpath("//*[@class='journey-plan']")).size(); 
-		}
+		
 		logger.logMessage("\tFound Journeys:\t" + journeysFound);
 		return journeysFound;
 	}

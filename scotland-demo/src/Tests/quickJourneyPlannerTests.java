@@ -166,4 +166,50 @@ public class quickJourneyPlannerTests
 	    // Verify that a number of journeys were planned.
 	    assertTrue(jpPage.getJourneyCount() == 0);
 	}
+	
+	@Test
+	public void test_QJP05_From_ClearField()  
+	{
+		logger.logTestStart(
+				"Test QJP-05: From: Clear Field",
+				"Summary: This test verifies that the QJP From field clears when the <x> button is clicked.");
+	    driver.get(baseUrl);
+	    homepagePOM homePage = new homepagePOM(driver);
+	    
+	    // Set the Origin and Destination values. 
+	    String origin = "Dunoon, Argyll & Bute";
+	    String destination = "Fair Isle Airport, Shetland Islands";
+	    logger.logMessage("QJP planning:");
+	    homePage.setQJP_Locations(origin, destination);
+
+	    // Click on <x> for the From field.
+	    homePage.clearOrigin();
+	    
+	    // Expected behaviour: the From field now contains the text "From".
+	    assertTrue(homePage.getOrigin().equals("From"));
+	}
+	
+	@Test
+	public void test_QJP06_Destination_ClearField()  
+	{
+		logger.logTestStart(
+				"Test QJP-06: Destination: Clear Field",
+				"Summary: This test verifies that the QJP To field clears when the <x> button is clicked.");
+	    driver.get(baseUrl);
+	    homepagePOM homePage = new homepagePOM(driver);
+	    
+	    // Set the Origin and Destination values. 
+	    String origin = "Dunoon, Argyll & Bute";
+	    String destination = "Fair Isle Airport, Shetland Islands";
+	    logger.logMessage("QJP planning:");
+	    homePage.setQJP_Locations(origin, destination);
+
+	    // Click on <x> for the To field.
+	    homePage.clearDestination();
+	    
+	    // Expected behaviour: the From field now contains the text "From".
+	    assertTrue(homePage.getDestination().equals("To"));
+	}
+
 }
+

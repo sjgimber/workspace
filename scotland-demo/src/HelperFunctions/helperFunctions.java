@@ -12,6 +12,10 @@ public class helperFunctions
 	
 	public boolean isCorrectScreenShown(String expectedScreenValue, String actualScreenValue)
 	{
+		// Check that the correct screen is shown.
+		// This is a little complicated by the fact that multiple screens have the same title,
+		// so the comparison is done either on URL content or on title, depending on the values fed in.
+		
 		logger.logMessage("Checking screen URL / Title:");
 		
 		if (actualScreenValue.contains(expectedScreenValue))
@@ -46,10 +50,12 @@ public class helperFunctions
 		try
 		{
 			driver.findElement(by);
+			logger.logMessage("\tFound control");
 			return true;
 		}
 		catch (NoSuchElementException e)
 		{
+			logger.logMessage("\tNOT Found control");
 			return false;
 		}
 	}

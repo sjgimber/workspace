@@ -57,45 +57,14 @@ public class homepageTests
 	}
 	
 	@Test
-	public void test_QJP01_MissingMandatoryValues() throws InterruptedException 
+	public void test_nav01_NavigateTo_JourneyPlanner() 
 	{
 		logger.logTestStart(
-				"Test QJP-01: Invalid: Missing Mandatory Values",
-				"Summary: This test verifies that the QJP panel refuses to start with missing mandatory values.");
+				"Test Nav-01: Navigate to: Journey Planner",
+				"Summary: This verifies that the user can navigate to the Journey Planner from the menu bar.");
 	    driver.get(baseUrl);
 	    homepagePOM homePage = new homepagePOM(driver);
 
-	    // Click on the <Plan my journey> button without providing any details.
-	    // The Home page should still be shown.
-	    homePage.clickQJP_PlanMyJourney();
-	    
-	    // There is no validation error shown for missing values.
-	    // Expected behaviour: the Home screen is still shown.
-	    assertTrue(lib.isCorrectScreenShown(constants.titleHomePage, driver.getTitle()));
-	}
-	
-	@Test
-	public void test_QJP02_PlanJourney() throws InterruptedException 
-	{
-		logger.logTestStart(
-				"Test QJP-02: Plan Journey",
-				"Summary: This test verifies that the QJP panel passes the locations through to the Journey Planner.");
-	    driver.get(baseUrl);
-	    homepagePOM homePage = new homepagePOM(driver);
-
-	    // Set the Origin and Destination values.
-	    String origin = "Dunoon, Argyll & Bute";
-	    String destination = "Glasgow, Glasgow";
-	    homePage.setQJP_Locations(origin, destination);
-	    
-	    // Click on <Plan My Journey>.
-	    homePage.clickQJP_PlanMyJourney();
-	    
-	    // There is no validation error shown for missing values.
-	    // Expected behaviour: the Home screen is still shown.
-	    assertTrue(lib.isCorrectScreenShown(constants.urlJourneyPlannerPage, driver.getCurrentUrl()));
-
-	    // Verify that the journey was planned as requested.
-	    
+	    assertTrue(homePage.clickMenu_JourneyPlanner());
 	}
 }
