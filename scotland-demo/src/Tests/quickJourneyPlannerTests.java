@@ -182,6 +182,9 @@ public class quickJourneyPlannerTests
 	    logger.logMessage("QJP planning:");
 	    homePage.setQJP_Locations(origin, destination);
 
+	    // Verify the origin has been set.
+	    assertTrue(homePage.getOrigin().equals(origin));
+	    
 	    // Click on <x> for the From field.
 	    homePage.clearOrigin();
 	    
@@ -204,6 +207,9 @@ public class quickJourneyPlannerTests
 	    logger.logMessage("QJP planning:");
 	    homePage.setQJP_Locations(origin, destination);
 
+	    // Verify the destination has been set.
+	    assertTrue(homePage.getDestination().equals(destination));
+	    
 	    // Click on <x> for the To field.
 	    homePage.clearDestination();
 	    

@@ -21,6 +21,13 @@ public class constants
 	public static final String urlTimetablesPage = "/timetables";
 	public static final String urlTravelUpdatesPage = "/updates";
 	
+	public static final String titleErrorDialog = "Error";
+	
+	// List of error messages used in the error dialog.
+	public static final String errorJPFailed = "Journey planning failed.";
+	
+	
+	
 	// List of invalid date values to use for validation checking of each date field.
     public static final String[] invalidDates =	{"2017", "2017-02-29", "invalidvalue"};
     

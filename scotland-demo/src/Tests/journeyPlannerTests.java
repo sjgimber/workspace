@@ -43,6 +43,7 @@ public class journeyPlannerTests
 	    logger.logTestEnd();
 	}
 	
+	/*
 	@Test
 	public void test_JP01_From_ClearField()  
 	{
@@ -58,6 +59,9 @@ public class journeyPlannerTests
 	    logger.logMessage("Journey planning:");
 	    jpPage.setJP_Locations(origin, destination);
 
+	    // Verify the origin has been set.
+	    assertTrue(jpPage.getOrigin().equals(origin));
+	    
 	    // Click on <x> for the From field.
 	    jpPage.clearOrigin();
 	    
@@ -80,10 +84,37 @@ public class journeyPlannerTests
 	    logger.logMessage("Journey planning:");
 	    jpPage.setJP_Locations(origin, destination);
 
+	    // Verify the destination has been set.
+	    assertTrue(jpPage.getDestination().equals(destination));
+	    
 	    // Click on <x> for the To field.
 	    jpPage.clearDestination();
 	    
 	    // Expected behaviour: the To field now contains the text "To".
 	    assertTrue(jpPage.getDestination().equals("To"));
+	}	
+	*/
+	@Test
+	public void test_JP10_ValidationTest_SameLocations()  
+	{
+		logger.logTestStart(
+				"Test JP-10: Validation Test: Same Location",
+				"Summary: This test verifies that the Journey Planner displays a validation error when the Origin and Destination are the same.");
+	    driver.get(baseUrl);
+	    journeyPlannerPOM jpPage = new journeyPlannerPOM(driver);
+	    
+	    // Set the Origin and Destination values. 
+	    String origin = "Dunoon, Argyll & Bute";
+	    String destination = "Dunoon, Argyll & Bute";
+	    logger.logMessage("Journey planning:");
+	    jpPage.setJP_Locations(origin, destination);
+
+	    // Expected behaviour: the Journey Planner displays a validation error.
+	    if (lib.isErrorMessageShown(driver))
+	    {
+	    	assertTrue(lib.getErrorTitle(driver).equals(constants.titleErrorDialog));
+	    	assertTrue(lib.getErrorMessage(driver).equals(constants.errorJPFailed));
+	    	lib.closeErrorMessage(driver);
+	    }
 	}	
 }

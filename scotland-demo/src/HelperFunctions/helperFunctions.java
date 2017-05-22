@@ -2,7 +2,9 @@ package HelperFunctions;
 
 import java.util.NoSuchElementException;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -58,5 +60,78 @@ public class helperFunctions
 			logger.logMessage("\tNOT Found control");
 			return false;
 		}
+	}
+	
+	
+	
+	public void waitForAlert(WebDriver driver) throws InterruptedException
+	{
+		int i = 0;
+		logger.logMessage("\tWaiting for alert...");
+		while (i++ < 5)
+		{
+			try
+			{
+				driver.switchTo().alert();
+				break;
+			}
+			catch (NoAlertPresentException e)
+			{
+				logger.logMessage("\tWaiting");
+				Thread.sleep(1000);
+				continue;
+			}
+		}
+	}
+	
+	public String getAlertTitle(WebDriver driver)
+	{
+		driver.switchTo().alert();
+		String title = driver.findElement(By.xpath("//h3")).getText();
+		logger.logMessage("\tFound Alert Title:\t" + title);
+		driver.switchTo().defaultContent();
+		return title;
+	}
+	
+	public boolean isErrorMessageShown(WebDriver driver)
+	{
+		// This detects if an error dialog is shown.  
+		// This is done via a div that is made visible.
+		boolean present;
+		try
+		{
+			driver.findElement(By.xpath(".//*[@class='modal-dialog']"));
+			logger.logMessage("\tAlert dialog shown.");
+			present = true;
+		}
+		catch (NoSuchElementException e)
+		{
+			logger.logMessage("\tAlert dialog not shown.");
+			present = false;
+		}
+		return present;
+	}
+	
+	public String getErrorTitle(WebDriver driver)
+	{
+		// Get the title from the displayed error dialog.
+		String title = driver.findElement(By.xpath(".//*[@class='modal-header']/h3")).getText();
+		logger.logMessage("\tAlert title:\t" + title);
+		return title;
+	}
+	
+	public String getErrorMessage(WebDriver driver)
+	{
+		// Get the title from the displayed error dialog.
+		String message = driver.findElement(By.xpath(".//*[@class='modal-body']/span")).getText();
+		logger.logMessage("\tAlert message:\t" + message);
+		return message;
+	}
+	
+	public void closeErrorMessage(WebDriver driver)
+	{
+		// Close the error message dialog by clicking on the <Close> button.
+		logger.logMessage("\tClosing alert dialog.");
+		driver.findElement(By.xpath(".//*[@class='modal-footer']/button")).click();
 	}
 }

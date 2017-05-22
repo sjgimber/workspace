@@ -23,8 +23,10 @@ public class journeyPlannerPOM
 	@FindBy(xpath=".//*[@id='destination']") WebElement txtDestination;										// "Destination" field.
 	@FindBy(xpath=".//*[@id='destination']/../following-sibling::span/i") WebElement btnDestinationClear;	// "Destination" field <clear> button.
 
-	
+	@FindBy(xpath=".//*[@class='modal-dialog']") WebElement dlgPopup;								// Popup dialog shown over the JP screen.
 
+	
+	
 	public journeyPlannerPOM(WebDriver driver)
 	{
 		this.driver = driver;
@@ -65,6 +67,7 @@ public class journeyPlannerPOM
 	{
 		// Click on the <x> button next to the Origin field.
 		// Expected behaviour: The field is cleared, and replaced with the word "From".
+		logger.logMessage("Click <x> for the Origin field...");
 		btnOriginClear.click();
 	}
 	
@@ -100,6 +103,7 @@ public class journeyPlannerPOM
 	{
 		// Click on the <x> button next to the Destination field.
 		// Expected behaviour: The field is cleared, and replaced with the word "To".
+		logger.logMessage("Click <x> for the Destination field...");
 		btnDestinationClear.click();
 	}
 	
@@ -131,5 +135,24 @@ public class journeyPlannerPOM
 		
 		logger.logMessage("\tFound Journeys:\t" + journeysFound);
 		return journeysFound;
+	}
+	
+	public boolean isErrorMessageShown()
+	{
+		// This detects if an error dialog is shown.  
+		// On the JP, this is done via a div that is made visible.
+		boolean present;
+		try
+		{
+			driver.findElement(By.xpath(".//*[@class='modal-dialog']"));
+			logger.logMessage("\tAlert dialog shown.");
+			present = true;
+		}
+		catch (NoSuchElementException e)
+		{
+			logger.logMessage("\tAlert dialog not shown.");
+			present = false;
+		}
+		return present;
 	}
 }
