@@ -23,6 +23,11 @@ public class journeyPlannerPOM
 	@FindBy(xpath=".//*[@id='destination']") WebElement txtDestination;										// "Destination" field.
 	@FindBy(xpath=".//*[@id='destination']/../following-sibling::span/i") WebElement btnDestinationClear;	// "Destination" field <clear> button.
 
+	@FindBy(xpath=".//*[@name='time']") WebElement txtTime;											// Time field.
+	@FindBy(xpath=".//*[@class='icon-time']") WebElement btnTime;									// Time button.
+	
+	
+	
 	@FindBy(xpath=".//*[@class='modal-dialog']") WebElement dlgPopup;								// Popup dialog shown over the JP screen.
 
 	
@@ -106,6 +111,43 @@ public class journeyPlannerPOM
 		logger.logMessage("Click <x> for the Destination field...");
 		btnDestinationClear.click();
 	}
+	
+	public void setTimeByKeyboard(String time)
+	{
+		// Set the content of the Time field (in the format "hh:mm").  
+		logger.logMessage("\tSet Time:  \t" + time);
+		txtTime.clear();
+		txtTime.sendKeys(time);
+	}
+	
+	public void setTimeByPicker(String time)
+	{
+		// Set the content of the Time field (in the format "hh:mm").
+		// NOTE: 
+		//		The hh component goes in 1h increments, format h:mm.
+		//		The mm component increases in 5m increments.
+		String[] parts = time.split(":");
+		String hour = parts[0];
+		String minute = parts[1];
+		
+		logger.logMessage("\tSet Hour:\t" + hour);
+		btnTime.click();
+		String xpath = ".//*[@class='hour' and text()='" + hour + ":00']";
+		driver.findElement(By.xpath(xpath)).click();
+		
+		logger.logMessage("\tSet Minute:\t" + minute);
+		xpath = ".//*[@class='minute' and text()='" + hour + ":" + minute + "']";
+		driver.findElement(By.xpath(xpath)).click();
+	}
+	
+	public String getTime()
+	{
+		// Retrieve the time value in the Time field.
+		String time = txtTime.getAttribute("value");
+		logger.logMessage("\tFound Time:\t" + time);
+		return time;
+	}
+	
 	
 	// --------------------------------------------------------------------------------
 	

@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import HelperFunctions.*;
@@ -93,7 +94,7 @@ public class journeyPlannerTests
 	    // Expected behaviour: the To field now contains the text "To".
 	    assertTrue(jpPage.getDestination().equals("To"));
 	}	
-	*/
+	
 	@Test
 	public void test_JP10_ValidationTest_SameLocations()  
 	{
@@ -117,4 +118,41 @@ public class journeyPlannerTests
 	    	lib.closeErrorMessage(driver);
 	    }
 	}	
+	
+	
+	@Test
+	public void test_JP20_Time_SetTimeByKeyboard()  
+	{
+		logger.logTestStart(
+				"Test JP-20: Time: Set Time By Keyboard",
+				"Summary: This test verifies that the time can be set by typing in a value directly.");
+	    driver.get(baseUrl);
+	    journeyPlannerPOM jpPage = new journeyPlannerPOM(driver);
+	    
+	    // Set the time directly.
+	    String testTime = "12:34";
+	    jpPage.setTimeByKeyboard(testTime);
+	    
+	    // Now verify that the field contains the correct value.
+	    assertTrue(jpPage.getTime().equals(testTime));
+	}
+	*/
+	
+	@Test
+	public void test_JP21_Time_SetTimeByPicker()  
+	{
+		logger.logTestStart(
+				"Test JP-21: Time: Set Time By Picker",
+				"Summary: This test verifies that the time can be set by choosing it from the Time picker.");
+	    driver.get(baseUrl);
+	    journeyPlannerPOM jpPage = new journeyPlannerPOM(driver);
+	    
+	    // Set the time directly.
+	    String testTime = "12:15";
+	    jpPage.setTimeByPicker(testTime);
+	    
+	    // Now verify that the field contains the correct value.
+	    assertTrue(jpPage.getTime().equals(testTime));
+	}
+	
 }

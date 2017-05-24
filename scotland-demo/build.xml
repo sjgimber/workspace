@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="scotland-demo">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../eclipse/jee-neon/eclipse/"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <path id="JUnit 4.libraryclasspath">
+        <pathelement location="../../.p2/pool/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
+        <pathelement location="../../.p2/pool/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+    </path>
+    <path id="scotland-demo.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/client-combined-3.3.1-nodeps.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/cglib-nodep-3.2.4.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/commons-codec-1.10.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/commons-exec-1.3.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/commons-io-2.5.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/commons-lang3-3.5.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/commons-logging-1.2.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/cssparser-0.9.21.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/gson-2.8.0.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/guava-21.0.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/hamcrest-core-1.3.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/hamcrest-library-1.3.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/htmlunit-2.24.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/htmlunit-core-js-2.23.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/htmlunit-driver-2.24.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/httpclient-4.5.2.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/httpcore-4.4.4.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/httpmime-4.5.2.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/javax.servlet-api-3.1.0.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/jetty-io-9.4.1.v20170120.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/jetty-util-9.4.1.v20170120.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/jna-4.1.0.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/jna-platform-4.1.0.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/junit-4.12.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/neko-htmlunit-2.24.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/phantomjsdriver-1.4.0.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/sac-1.3.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/serializer-2.7.2.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/websocket-api-9.2.20.v20161216.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/websocket-client-9.2.20.v20161216.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/websocket-common-9.2.20.v20161216.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/xalan-2.7.2.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/xercesImpl-2.11.0.jar"/>
+        <pathelement location="../../eclipse/selenium-java-3.3.1/lib/xml-apis-1.4.01.jar"/>
+        <path refid="JUnit 4.libraryclasspath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="scotland-demo.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="homepageTests.test_QJP02_MissingMandatoryValues">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="Tests.homepageTests" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="scotland-demo.classpath"/>
+        </junit>
+    </target>
+    <target name="quickJourneyPlannerTests">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="Tests.quickJourneyPlannerTests" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="scotland-demo.classpath"/>
+        </junit>
+    </target>
+    <target name="scotland-demo">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="Tests.homepageTests" todir="${junit.output.dir}"/>
+            <test name="Tests.journeyPlannerTests" todir="${junit.output.dir}"/>
+            <test name="Tests.quickJourneyPlannerTests" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="scotland-demo.classpath"/>
+        </junit>
+    </target>
+    <target name="homepageTests">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="Tests.homepageTests" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="scotland-demo.classpath"/>
+        </junit>
+    </target>
+    <target name="journeyPlannerTests">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="Tests.journeyPlannerTests" todir="${junit.output.dir}"/>
+            <jvmarg line="-ea"/>
+            <classpath refid="scotland-demo.classpath"/>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>
